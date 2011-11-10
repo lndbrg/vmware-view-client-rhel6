@@ -212,6 +212,7 @@ print_synopsis
 
 if [[ "${CONFIRMATION}"  == y || -n "${YES}" ]]; then
 	for FUNC in ${FUNCS[@]}; do
+        echo "-----------------------------------------------------"
 		"$FUNC"
 		EXIT_CODE=$?
 		if [[ $EXIT_CODE -ne 0 ]]; then
