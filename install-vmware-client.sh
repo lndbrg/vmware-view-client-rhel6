@@ -147,7 +147,7 @@ trap cleanup 1 2 3 15 ERR
 function ensure_root() {
 	MESSAGE=${1:-"run this script."}
 	if [[ $EUID -ne 0 ]]; then
-	   echo "I need root privileges to ${1}" 1>&2
+	   echo "I need root privileges to ${MESSAGE}" 1>&2
 	   exit 1
 	fi
 }
