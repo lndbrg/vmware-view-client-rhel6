@@ -83,46 +83,46 @@ EOD
 
 while getopts "kzdeaciryw:h" OPT; do
 	case "${OPT}" in
-		k)
-			REMOVE="false"
-		;;
-		z)
-			array_push FUNCS install_7zip
-		;;
-		d)
-			array_push FUNCS download_client
-		;;
-		e)
-			array_push FUNCS extract_client
-		;;
-		a)
-			array_push FUNCS install_alien
-		;;
-		c)
-			array_push FUNCS convert_client	
-		;;
-		i)
-			array_push FUNCS install_rpm
-		;;
+        k)
+            REMOVE="false"
+        ;;
+        z)
+            array_push FUNCS install_7zip
+        ;;
+        d)
+            array_push FUNCS download_client
+        ;;
+        e)
+            array_push FUNCS extract_client
+        ;;
+        a)
+            array_push FUNCS install_alien
+        ;;
+        c)
+            array_push FUNCS convert_client	
+        ;;
+        i)
+            array_push FUNCS install_rpm
+        ;;
         r)
             FUNCS=(remove_rpm)
             break
         ;;
-		w)
-			WORKDIR=${OPTARG}
-			REMOVE="false"
-		;;
-		h)
-			print_usage
-			exit 0
-		;;
-		y)
-			YES="-y"
-		;;
-		*)
-			print_usage
-			exit 2
-		;;
+        w)
+            WORKDIR=${OPTARG}
+            REMOVE="false"
+        ;;
+        h)
+            print_usage
+            exit 0
+        ;;
+        y)
+            YES="-y"
+        ;;
+        *)
+            print_usage
+            exit 2
+        ;;
 	esac
 done
 
