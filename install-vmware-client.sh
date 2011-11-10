@@ -1,4 +1,28 @@
 #! /bin/bash
+#
+# Copyright (C) 2011  Olle Lundberg
+#
+# Author: Olle Lunderg (olle@redhat.com)
+# Author: Olle Lunderg (geek@nerd.sh)
+#
+# This script reflects my personal standpoint and should not
+# be confused with the views or standpoints of my employer.
+#
+# This library is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public
+# License as published by the Free Software Foundation; either
+# version 3.0 of the License, or (at your option) any later version.
+#
+# This library is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General
+# Public License for more details.
+#
+# You should have received a copy of the GNU General Public
+# License along with this library; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
+
+
 
 ALIEN="alien_8.85.tar.gz"
 ALIEN_URL="http://ftp.de.debian.org/debian/pool/main/a/alien/${ALIEN}"
