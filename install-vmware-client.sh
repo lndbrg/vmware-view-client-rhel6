@@ -74,7 +74,7 @@ Actions to take
 
 Script configurations
 -k          keep the tepmorary workspace after exiting.
--w VALUE    use this folder as the workspace (also sets the -k flag)
+-w  VALUE   use this folder as the workspace (also sets the -k flag)
 -h          prints this help.
 -y          assume yes on all questions
 
