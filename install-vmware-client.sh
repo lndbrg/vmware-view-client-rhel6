@@ -138,7 +138,7 @@ function cleanup() {
 	else 
 		echo -e "\nNot cleaning up workdir: ${WORKDIR}"
 	fi
-    exit
+    exit $1
 }
 
 trap cleanup 1 2 3 15 ERR
@@ -217,12 +217,10 @@ if [[ "${CONFIRMATION}"  == y || -n "${YES}" ]]; then
 		EXIT_CODE=$?
 		if [[ $EXIT_CODE -ne 0 ]]; then
 			echo "Something went wrong, cowardly refusing to continue!"
-			cleanup
-			exit 3
+			cleanup 3
 		fi
 	done
 fi
 
 popd >>/dev/null
-cleanup
-exit 0
+cleanup 0
