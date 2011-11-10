@@ -57,7 +57,7 @@ $(basename ${0}) [OPTION]
 
 $(print_synopsis)
 Default behaviour is running the all of the actions switches
-in the order specified below.
+in the order specified below (except for -r)
 
 Actions to take
 -z          install p7zip
@@ -65,7 +65,12 @@ Actions to take
 -e          extract the HP ThinClient
 -a          download and install alien
 -c          convert the view client package from a deb to rpm
--i	    install the generated rpm using yum (*not done by default*)
+-i          install the generated rpm using yum (*not done by default*)
+-r          removes the rpm and every other hack done by this script
+            if -r is specified all other actions get purged from the
+            run queue and only the remove functionality is ran.
+            (this might be dangerous since there are script symlinks
+            being done by the script.)
 
 Script configurations
 -k          keep the tepmorary workspace after exiting.
@@ -76,7 +81,7 @@ Script configurations
 EOD
 }
 
-while getopts "kzdeaciyw:h" OPT; do
+while getopts "kzdeaciryw:h" OPT; do
 	case "${OPT}" in
 		k)
 			REMOVE="false"
@@ -99,6 +104,10 @@ while getopts "kzdeaciyw:h" OPT; do
 		i)
 			array_push FUNCS install_rpm
 		;;
+        r)
+            FUNCS=(remove_rpm)
+            break
+        ;;
 		w)
 			WORKDIR=${OPTARG}
 			REMOVE=false
@@ -186,6 +195,17 @@ Name=VMware View Client
 EOD
 ) > "${DOT_DESKTOP}"
 }
+
+function remove_rpm() {
+    ensure_root "to remove the vmware client rpm"
+    rm -rf /usr/bin/libdir/lib/libcrypto.so.0.9.8
+    rm -f /etc/vmware/usb.link
+    mv /usr/share/pixmaps/view.{png,ico}
+    rpm -e $(rpm -qa vmware-view-client)
+    rm -f "${DOT_DESKTOP}"
+}
+
+print_synopsis
 
 [[ -z "${YES}" ]] && read -n1 -p 'Ready to run script. Do you want to continue (y/N) ' -e CONFIRMATION
 
