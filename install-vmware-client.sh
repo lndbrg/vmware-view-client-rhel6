@@ -42,11 +42,19 @@ array_push()
     eval $name\[\$index\]=\"$value\"
 }
 
+function print_synopsis() {
+cat <<EOD
+This script is a quick and fugly hack to install the vmware
+view client on rhel6.  This is risky business. YMMV
+
+EOD
+}
 
 function print_usage() {
-cat <<EOF
+cat <<EOD
 $(basename ${0}) [OPTION]
 
+$(print_synopsis)
 Default behaviour is running the all of the actions switches
 in the order specified below.
 
@@ -64,7 +72,7 @@ Script configurations
 -h          prints this help.
 -y          assume yes on all questions
 
-EOF
+EOD
 }
 
 while getopts "kzdeaciyw:h" OPT; do
