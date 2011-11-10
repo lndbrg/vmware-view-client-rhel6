@@ -133,11 +133,12 @@ pushd $WORKDIR >>/dev/null
 
 function cleanup() {
 	if [[ "${REMOVE}" == "true" ]];then
-		echo "Cleaning up ${WORKDIR}"
+		echo -e "\nCleaning up workdir: ${WORKDIR}"
 		rm -rf "${WORKDIR}"
 	else 
-		echo "Not cleaning up ${WORKDIR}"
+		echo -e "\nNot cleaning up workdir: ${WORKDIR}"
 	fi
+    exit
 }
 
 trap cleanup 1 2 3 15 ERR
