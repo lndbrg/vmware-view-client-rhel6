@@ -30,6 +30,7 @@ ALIEND_DEPS="rpm-build"
 HP_THIN_CLIENT="sp52674.exe"
 HP_THIN_CLIENT_URL="ftp://ftp.hp.com/pub/softpaq/sp52501-53000/$HP_THIN_CLIENT"
 HP_THIN_CLIENT_DEPS="p7zip p7zip-plugins"
+DOT_DESKTOP="/usr/share/applications/vmware-view.desktop"
 REMOVE="true"
 WORKDIR=$(mktemp -d)
 YES=""
@@ -173,6 +174,17 @@ function install_rpm() {
 	mkdir -p /usr/bin/libdir/lib/libcrypto.so.0.9.8
 	ln -s /usr/lib/libcrypto.so.0.9.8 /usr/bin/libdir/lib/libcrypto.so.0.9.8/libcrypto.so.0.9.8
 	ln -s /usr/lib/vmware/vmware-view-usb /etc/vmware/usb.link
+    mv /usr/share/pixmaps/view.{ico,png}
+(cat <<EOD
+[Desktop Entry]
+Encoding=UTF-8
+Type=Application
+Icon=view
+Exec=vmware-view
+Categories=Application;Network;
+Name=VMware View Client
+EOD
+) > "${DOT_DESKTOP}"
 }
 
 [[ -z "${YES}" ]] && read -n1 -p 'Ready to run script. Do you want to continue (y/N) ' -e CONFIRMATION
