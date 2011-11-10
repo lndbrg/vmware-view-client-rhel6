@@ -82,7 +82,7 @@ EOD
 }
 
 while getopts "kzdeaciryw:h" OPT; do
-	case "${OPT}" in
+    case "${OPT}" in
         k)
             REMOVE="false"
         ;;
@@ -99,7 +99,7 @@ while getopts "kzdeaciryw:h" OPT; do
             array_push FUNCS install_alien
         ;;
         c)
-            array_push FUNCS convert_client	
+            array_push FUNCS convert_client    
         ;;
         i)
             array_push FUNCS install_rpm
@@ -123,7 +123,7 @@ while getopts "kzdeaciryw:h" OPT; do
             print_usage
             exit 2
         ;;
-	esac
+    esac
 done
 
 [[ "${#FUNCS[@]}" = 0 ]] && FUNCS=( ensure_root install_7zip download_client extract_client install_alien convert_client ) 
@@ -132,12 +132,12 @@ done
 pushd $WORKDIR >>/dev/null
 
 function cleanup() {
-	if [[ "${REMOVE}" == "true" ]];then
-		echo -e "\nCleaning up workdir: ${WORKDIR}"
-		rm -rf "${WORKDIR}"
-	else 
-		echo -e "\nNot cleaning up workdir: ${WORKDIR}"
-	fi
+    if [[ "${REMOVE}" == "true" ]];then
+        echo -e "\nCleaning up workdir: ${WORKDIR}"
+        rm -rf "${WORKDIR}"
+    else 
+        echo -e "\nNot cleaning up workdir: ${WORKDIR}"
+    fi
     exit $1
 }
 
@@ -145,45 +145,45 @@ trap cleanup 1 2 3 15 ERR
 
 
 function ensure_root() {
-	MESSAGE=${1:-"run this script."}
-	if [[ $EUID -ne 0 ]]; then
-	   echo "I need root privileges to ${MESSAGE}" 1>&2
-	   exit 1
-	fi
+    MESSAGE=${1:-"run this script."}
+    if [[ $EUID -ne 0 ]]; then
+       echo "I need root privileges to ${MESSAGE}" 1>&2
+       exit 1
+    fi
 }
 
 function install_7zip() {
-	ensure_root "install 7zip with dependencies."
-	yum install "${YES}" ${HP_THIN_CLIENT_DEPS}
+    ensure_root "install 7zip with dependencies."
+    yum install "${YES}" ${HP_THIN_CLIENT_DEPS}
 }
 
 function download_client() {
-	wget "${HP_THIN_CLIENT_URL}"
+    wget "${HP_THIN_CLIENT_URL}"
 }
 
 function extract_client() {
-	7za e "${HP_THIN_CLIENT}"
+    7za e "${HP_THIN_CLIENT}"
 }
 
 function install_alien() {
-	ensure_root "install alien with dependencies"
-	yum install "${YES}" "${ALIEND_DEPS}"
-	wget "${ALIEN_URL}"
-	tar xf "${ALIEN}"
+    ensure_root "install alien with dependencies"
+    yum install "${YES}" "${ALIEND_DEPS}"
+    wget "${ALIEN_URL}"
+    tar xf "${ALIEN}"
 }
 
 function convert_client() {
-	PERL5LIB=./alien alien/alien.pl -r vmware-view-client*.deb
+    PERL5LIB=./alien alien/alien.pl -r vmware-view-client*.deb
 }
 
 function install_rpm() {
-	ensure_root "install the vmware client rpm"
-	yum install ${YES} openssl098e.i686
-	ln -s /usr/lib/libcrypto.so.0.9.8e /usr/lib/libcrypto.so.0.9.8
-	rpm -ivh --nodeps vmware-view-client*.rpm
-	mkdir -p /usr/bin/libdir/lib/libcrypto.so.0.9.8
-	ln -s /usr/lib/libcrypto.so.0.9.8 /usr/bin/libdir/lib/libcrypto.so.0.9.8/libcrypto.so.0.9.8
-	ln -s /usr/lib/vmware/vmware-view-usb /etc/vmware/usb.link
+    ensure_root "install the vmware client rpm"
+    yum install ${YES} openssl098e.i686
+    ln -s /usr/lib/libcrypto.so.0.9.8e /usr/lib/libcrypto.so.0.9.8
+    rpm -ivh --nodeps vmware-view-client*.rpm
+    mkdir -p /usr/bin/libdir/lib/libcrypto.so.0.9.8
+    ln -s /usr/lib/libcrypto.so.0.9.8 /usr/bin/libdir/lib/libcrypto.so.0.9.8/libcrypto.so.0.9.8
+    ln -s /usr/lib/vmware/vmware-view-usb /etc/vmware/usb.link
     mv /usr/share/pixmaps/view.{ico,png}
 (cat <<EOD
 [Desktop Entry]
@@ -211,15 +211,15 @@ print_synopsis
 [[ -z "${YES}" ]] && read -n1 -p 'Ready to run script. Do you want to continue (y/N) ' -e CONFIRMATION
 
 if [[ "${CONFIRMATION}"  == y || -n "${YES}" ]]; then
-	for FUNC in ${FUNCS[@]}; do
+    for FUNC in ${FUNCS[@]}; do
         echo "-----------------------------------------------------"
-		"$FUNC"
-		EXIT_CODE=$?
-		if [[ $EXIT_CODE -ne 0 ]]; then
-			echo "Something went wrong, cowardly refusing to continue!"
-			cleanup 3
-		fi
-	done
+        "$FUNC"
+        EXIT_CODE=$?
+        if [[ $EXIT_CODE -ne 0 ]]; then
+            echo "Something went wrong, cowardly refusing to continue!"
+            cleanup 3
+        fi
+    done
 fi
 
 popd >>/dev/null
