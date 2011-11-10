@@ -110,7 +110,7 @@ while getopts "kzdeaciryw:h" OPT; do
         ;;
 		w)
 			WORKDIR=${OPTARG}
-			REMOVE=false
+			REMOVE="false"
 		;;
 		h)
 			print_usage
