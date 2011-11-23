@@ -69,8 +69,8 @@ Actions to take
 -r          removes the rpm and every other hack done by this script
             if -r is specified all other actions get purged from the
             run queue and only the remove functionality is ran.
-            (this might be dangerous since there are script symlinks
-            being done by the script.)
+            (this might be dangerous since there are symlinks being
+            created by the script.)
 
 Script configurations
 -k          keep the tepmorary workspace after exiting.
