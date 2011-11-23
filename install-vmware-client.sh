@@ -57,7 +57,7 @@ $(basename ${0}) [OPTION]
 
 $(print_synopsis)
 Default behaviour is running the all of the actions switches
-in the order specified below (except for -r)
+in the order specified below (except for -i and -r)
 
 Actions to take
 -z          install p7zip
@@ -65,7 +65,7 @@ Actions to take
 -e          extract the HP ThinClient
 -a          download and install alien
 -c          convert the view client package from a deb to rpm
--i          install the generated rpm using yum (*not done by default*)
+-i          install the generated rpm using yum
 -r          removes the rpm and every other hack done by this script
             if -r is specified all other actions get purged from the
             run queue and only the remove functionality is ran.
